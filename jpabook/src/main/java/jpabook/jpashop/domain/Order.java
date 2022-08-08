@@ -39,7 +39,7 @@ public class Order {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
+  // jpql select 0 from order o; => sql select * from order
     @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -54,5 +54,26 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status; //주문상태 [ORDER, CANCEL]
 
+    //연관관계 메서드//
+    public void  setMember(Member member) {
+    	this.member = member;
+    	member.getOrders().add(this);
+    }
+    
+    public static void main(String[] args) {
+    	Member member = new Member();
+    	Order order = new Order();
+    	
+    	order.setMember(member);
+    }
 
+     public void addOrderItem(OrderItem orderItem) {
+    	 orderItems.add(orderItem);
+    	 orderItem.setOrder(this);
+     }
+     //양방향일때 세팅
+     public void setDelivery(Delivery delivery) {
+    	 this.delivery = delivery;
+    	 delivery.setOrder(this);
+     }
 }

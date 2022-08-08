@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.Order;
 import lombok.Getter;
 import lombok.Setter;
 
